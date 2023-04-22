@@ -32,9 +32,9 @@ export const deleteContact = createAsyncThunk(
     async (data) => {
         try {
             await contactsApi.deleteContact(data.id);
-            Notify.failure(`${data.name} is deleted from your contact list`);
-            return data.id; 
-        }  catch(error) {
+            Notify.failure(`Contact was delete from your contact list`);
+            return data;
+        } catch (error) {
             console.log(error);
         }
     }

@@ -1,7 +1,8 @@
 import { Label, FilterInput } from './Flter.styled';
 import { filterSelector } from 'redux/selectors';
 import { useSelector, useDispatch } from 'react-redux';
-import { getFilter } from 'redux/filterSlice.'
+import { getFilter } from 'redux/filterSlice';
+
 
 
 export function Filter() {
@@ -20,4 +21,4 @@ export function Filter() {
       </Label>
     </form>
   );
-}
+};

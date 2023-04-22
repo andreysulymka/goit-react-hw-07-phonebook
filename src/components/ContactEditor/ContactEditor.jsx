@@ -2,8 +2,9 @@ import { useState } from "react";
 import PropTypes from 'prop-types';
 import {Form, NameLabel, NameInput, NumberLabel, NumberInput, Button} from './ContactEditor.styled'
 import { useDispatch, useSelector } from "react-redux";
-import { nanoid } from 'nanoid';
-import {addContact} from "redux/contactsSlice";
+
+import { addContact } from "redux/operations";
+import { contactsSelector } from "redux/selectors";
 
 function ContactEditor(){
     const [name, setName] = useState("");
@@ -11,42 +12,32 @@ function ContactEditor(){
 
 
     const dispatch = useDispatch();
-    const contacts = useSelector(state => state.contacts.contacts);
+    const contacts = useSelector(contactsSelector);
      
     
-    const addNewContact = (data) => {
-    const existingContact = contacts.find(
-      element => element.name.toLowerCase() === data.name.toLowerCase()
-    );
-    if (existingContact) {
-      window.alert(`${data.name} is already in contacts`);
-      return;
-    }
-    const newContact = {
-      id: nanoid(),
-      name: data.name,
-      number: data.number
-    };
-    dispatch(addContact(newContact));
-  };
-
-    const handleChange = event => {
-    const {name, value} = event.target
+      const handleChange = event => {
+   const { name, value } = event.currentTarget;
         switch (name) {
             case "name":
                 setName(value);
                 break;
-            
             case "number":
                 setNumber(value);
                 break;
-            
-            default: return;
+            default:
+                return;
 }
     }
 const handleSubmit = e => {
         e.preventDefault();
-        addNewContact({name: name, number: number});
+        const existingContact = contacts.find((element) =>
+            element.name === name
+        );
+        if(existingContact) {
+        window.alert(`${name} is already in contacts`);
+        return;
+        };
+        dispatch(addContact({name, number}));
     setName("");
     setNumber("");
     }
