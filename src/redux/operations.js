@@ -29,9 +29,9 @@ export const addContact = createAsyncThunk(
 
 export const deleteContact = createAsyncThunk(
     'contacts/deleteContact',
-    async (data) => {
+    async (id) => {
         try {
-            await contactsApi.deleteContact(data.id);
+            const data = await contactsApi.deleteContact(id);
             Notify.failure(`Contact was delete from your contact list`);
             return data;
         } catch (error) {

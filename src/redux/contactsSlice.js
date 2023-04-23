@@ -6,10 +6,6 @@ const onPending = state => {
     state.error = null;
 };
 
-const onFulfilled = state => {
-    state.isLoading = false;
-    state.error = null;
-};
 
 const onRejected = (state, action) => {
     state.isLoading = false;
@@ -27,7 +23,8 @@ export const contacts = createSlice({
         [fetchContacts.pending]: onPending,
         [fetchContacts.fulfilled]: (state, action) => {
             state.items = action.payload;
-            onFulfilled(state);
+             state.isLoading = false;
+    state.error = null;
         },
         [fetchContacts.rejected]: onRejected,
 
@@ -35,15 +32,18 @@ export const contacts = createSlice({
         [addContact.pending]: onPending,
         [addContact.fulfilled]: (state, action) => {
             state.items.push(action.payload);
-            onFulfilled(state);
+             state.isLoading = false;
+    state.error = null;
         },
         [addContact.rejected]: onRejected,
 
         
         [deleteContact.pending]: onPending,
         [deleteContact.fulfilled]: (state, action) => {
-            state.items = state.items.filter(contact => contact.id !== action.payload);
-            onFulfilled(state);
+            console.log(action.payload)
+        state.items = state.items.filter(contact => contact.id !== action.payload.id);
+        state.isLoading = false;
+        state.error = null;
         },
         [deleteContact.rejected]: onRejected,
     },
