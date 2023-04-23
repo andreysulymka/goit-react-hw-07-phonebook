@@ -40,7 +40,6 @@ export const contacts = createSlice({
         
         [deleteContact.pending]: onPending,
         [deleteContact.fulfilled]: (state, action) => {
-            console.log(action.payload)
         state.items = state.items.filter(contact => contact.id !== action.payload.id);
         state.isLoading = false;
         state.error = null;

@@ -11,7 +11,7 @@ const List = () => {
   
 
   const onDeleteContact = (id, name) => {
-    dispatch(deleteContact({id, name}));
+   dispatch(deleteContact(id));
   };
 
  
@@ -22,7 +22,7 @@ const List = () => {
         <Item key={id}>
           <p>{name}</p>
           <p>{number}</p>
-          <Button onClick={() => onDeleteContact(id, name)}>Delete</Button>
+          <Button onClick={() => onDeleteContact(id)}>Delete</Button>
         </Item>
       ))}
     </ul>
